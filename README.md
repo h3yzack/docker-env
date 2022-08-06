@@ -15,16 +15,16 @@ To start services:
   - To access: http://localhost:8081/
 
 ## MongoDB
-To backup db:\
+To backup db:
 
     docker exec my-mongo sh -c 'exec mongodump -d <dbname> --gzip --archive' > <filename>.gz
-or\
+or
 
     docker exec my-mongo sh -c 'exec mongodump -d <dbname> -o <backup_path>' 
 
-To restore db, run below command inside docker container:\
+To restore db, run below command inside docker container:
 
     mongorestore --drop --gzip --archive=<dbarchivefile.gz> --db <dbname>
-or\
+or
 
     mongorestore --db <newdbname> <jsonfilesdir>
