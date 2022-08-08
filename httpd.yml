@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  apache:
+    image: httpd:latest
+    container_name: my-apache-ws
+    ports:
+    - '9080:80'
+    volumes:
+    - ./shared/htdocs:/usr/local/apache2/htdocs
