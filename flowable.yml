@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+  flowable:
+    image: flowable/flowable-ui
+    container_name: 'my-flowable'
+    restart: always
+    # volumes:
+    #   - ./shared/flowable:/app
+    ports:
+      - "8085:8080"
+    networks: 
+      - dev-network
+
+networks:
+  dev-network:
+    name: development

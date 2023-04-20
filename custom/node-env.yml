@@ -1,0 +1,20 @@
+version: '3.1'
+
+networks:
+  dev-network:
+    name: development
+
+services:
+  
+  node18:
+    container_name: 'node18-env'
+    tty: true
+    build: 
+      context: ./
+      dockerfile: node18DockerFile
+    image: 'dev-node:18.4'
+    restart: 'no'
+    ports:
+      - "4200:4200"
+    networks:
+      - dev-network

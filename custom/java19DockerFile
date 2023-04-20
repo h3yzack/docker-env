@@ -1,0 +1,26 @@
+FROM eclipse-temurin:19-jdk-jammy
+
+RUN apt-get update && \
+	apt-get install -y wget git && \
+	apt-get clean
+
+ARG USER_HOME_DIR="/root"
+
+# install maven 3.9.0
+ARG MAVEN_VERSION=3.9.0
+ARG BASE_URL=https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries
+
+RUN wget --no-verbose -O /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz
+
+RUN tar xzf /tmp/apache-maven.tar.gz -C /opt/
+RUN ln -s /opt/apache-maven-${MAVEN_VERSION} /opt/maven
+RUN ln -s /opt/maven/bin/mvn /usr/local/bin
+RUN rm -f /tmp/apache-maven.tar.gz
+ENV MAVEN_HOME /opt/maven
+ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+
+RUN useradd -rm -d /home/dev -s /bin/bash -g root -G sudo -u 1001 dev
+USER dev
+
+RUN mkdir -p /home/dev/workspaces
+WORKDIR /home/dev/workspaces
